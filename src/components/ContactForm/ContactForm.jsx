@@ -4,8 +4,13 @@ import { nanoid } from "nanoid";
 import s from "./ContactForm.module.css";
 
 const validationSchema = Yup.object({
-  name: Yup.string().min(3).max(50).required("Required"),
-  number: Yup.string().min(3).max(50).required("Required"),
+  name: Yup.string()
+    .min(3, "Must be 3 characters or more")
+    .max(50, "Must be 50 characters or less")
+    .required("Required"),
+  number: Yup.string()
+    .matches(/^\d{3}-\d{2}-\d{2}$/, "Number must be in the format ###-##-##")
+    .required("Required"),
 });
 
 const ContactForm = ({ onSubmit }) => {
